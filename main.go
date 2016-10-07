@@ -2,6 +2,7 @@ package main
 
 import (
   "fmt"
+  "os"
   "os/exec"
 
   "bytes"
@@ -17,13 +18,20 @@ type Convert struct {
 }
 
 func main() {
-  r := gin.Default()
+  port := os.Getenv("PORT")
 
-  r.GET("/", func(c *gin.Context) {
+  if port == "" {
+    log.Fatal("$PORT must be set")
+  }
+
+
+  router := gin.Default()
+
+  router.GET("/", func(c *gin.Context) {
     c.JSON(200, gin.H { "message": "pong" })
   })
 
-  r.POST("/convert", func(c *gin.Context) {
+  router.POST("/convert", func(c *gin.Context) {
     var json Convert
 
     if c.BindJSON(&json) == nil {
@@ -48,5 +56,5 @@ func main() {
     }
   })
 
-  r.Run()
+  router.Run(":" + port)
 }
