@@ -36,10 +36,13 @@ func main() {
       err := cmd.Run()
 
       if err != nil {
+        c.JSON(500, gin.H { "error": "pandoc died for your sins 😕" })
         log.Fatal(err)
       }
 
       fmt.Printf(out.String())
+
+      c.JSON(200, gin.H { "format": json.Format, "body": out.String() })
     } else {
       c.JSON(418, gin.H { "error": "body and format required" })
     }
