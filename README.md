@@ -1,5 +1,7 @@
 # PandaGo 🐼
-![Panda! Go, Panda!](http://i.imgur.com/rL88eG5.jpg)
+
+[![Panda! Go, Panda!](http://i.imgur.com/rL88eG5.jpg)](https://youtu.be/nwd9W6VwIu4)
+
 Pandoc, wrapped in Go.
 
 ## Cloning this Project
