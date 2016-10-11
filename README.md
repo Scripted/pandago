@@ -1,5 +1,5 @@
 # PandaGo
-
+![Panda! Go, Panda!](http://i.imgur.com/rL88eG5.jpg)
 Pandoc, wrapped in Go.
 
 ## Cloning this Project
