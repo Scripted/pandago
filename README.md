@@ -59,7 +59,7 @@ That's it. Then just push it to Heroku like normal.
 
 ``` bash
 git push heroku master
-curl https://pandago.herokuapp.com
+curl -i https://<YOUR_APP_NAME>.herokuapp.com
 #
 # HTTP/1.1 200 OK
 # Server: Cowboy
