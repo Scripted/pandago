@@ -1,1 +1,1 @@
-web: go-panda
+web: pandago

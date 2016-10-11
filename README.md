@@ -1,6 +1,6 @@
-# Go-Panda
+# PandaGo
 
-Pandoc, wrapped in Go
+Pandoc, wrapped in Go.
 
 ## Cloning this Project
 
@@ -8,7 +8,7 @@ It's better to use `go get` instead of `git clone` so that your repo ends up
 somewhere in the `$GOPATH` (which is relied on by `govendor`).
 
 ``` bash
-go get github.com/scripted/go-panda
+go get github.com/scripted/pandago
 ```
 
 ## Go-Panda Locally
@@ -26,7 +26,7 @@ go install -v ./...
 heroku local
 ```
 
-Instead of running go-panda, you can also run the app directly using `go-panda`.
+Instead of running pandago, you can also run the app directly using `pandago`.
 
 ``` bash
 curl -i localhost:8080
@@ -59,7 +59,7 @@ That's it. Then just push it to Heroku like normal.
 
 ``` bash
 git push heroku master
-curl https://go-panda.herokuapp.com
+curl https://pandago.herokuapp.com
 #
 # HTTP/1.1 200 OK
 # Server: Cowboy
