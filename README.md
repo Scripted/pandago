@@ -1,4 +1,4 @@
-# PandaGo
+# PandaGo 🐼
 ![Panda! Go, Panda!](http://i.imgur.com/rL88eG5.jpg)
 Pandoc, wrapped in Go.
 
@@ -11,7 +11,7 @@ somewhere in the `$GOPATH` (which is relied on by `govendor`).
 go get github.com/scripted/pandago
 ```
 
-## Go-Panda Locally
+## PandaGo Locally
 
 You can run the server directly.
 
