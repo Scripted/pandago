@@ -42,6 +42,30 @@ curl -i localhost:8080
 # {"message":"pong"}
 ```
 
+## Dependencies with govendor
+
+PandaGo uses [`govendor`](https://github.com/kardianos/govendor) to manage its dependencies.
+
+``` bash
+go get -u github.com/kardianos/govendor
+```
+
+You can install all dependencies described in `vendor/vendor.json` into the
+`vendor/` directory by running the following.
+
+``` bash
+govendor sync
+```
+
+To update dependencies as described in the app, run the following.
+
+``` bash
+govendor add +external
+govendor remove +unused
+```
+
+For more info, checkout out [Heroku's page on govendor](https://devcenter.heroku.com/articles/go-dependencies-via-govendor).
+
 ## Deploying to Heroku
 
 Create the Heroku app as usual:
