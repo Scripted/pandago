@@ -9,6 +9,7 @@ somewhere in the `$GOPATH` (which is relied on by `govendor`).
 
 ``` bash
 go get github.com/scripted/pandago
+cd $GOPATH/src/github.com/scripted/pandago
 ```
 
 ## PandaGo Locally
