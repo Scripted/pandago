@@ -11,10 +11,32 @@ somewhere in the `$GOPATH` (which is relied on by `govendor`).
 go get github.com/scripted/go-panda
 ```
 
-## Run Locally
+## Go-Panda Locally
+
+You can run the server directly.
 
 ``` bash
 go run main.go
+```
+
+Compile and Run a la Heroku
+
+``` bash
+go install -v ./...
+heroku local
+```
+
+Instead of running go-panda, you can also run the app directly using `go-panda`.
+
+``` bash
+curl -i localhost:8080
+#
+# HTTP/1.1 200 OK
+# Content-Type: application/json; charset=utf-8
+# Date: Tue, 11 Oct 2016 21:53:14 GMT
+# Content-Length: 19
+#
+# {"message":"pong"}
 ```
 
 ## Deploying to Heroku
@@ -37,11 +59,13 @@ That's it. Then just push it to Heroku like normal.
 
 ``` bash
 git push heroku master
-curl -i https://go-panda.herokuapp.com/HTTP/1.1 200 OK
+curl https://go-panda.herokuapp.com
+#
+# HTTP/1.1 200 OK
 # Server: Cowboy
 # Connection: keep-alive
 # Content-Type: application/json; charset=utf-8
-# Date: Tue, 11 Oct 2016 21:20:56 GMT
+# Date: Tue, 11 Oct 2016 21:51:06 GMT
 # Content-Length: 19
 # Via: 1.1 vegur
 #

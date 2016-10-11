@@ -19,9 +19,8 @@ type Convert struct {
 
 func main() {
 	port := os.Getenv("PORT")
-
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "8080" // default to 8080 for development
 	}
 
 	router := gin.Default()
