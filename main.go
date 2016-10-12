@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"os/exec"
-
 	"bytes"
 	"log"
 	"strings"
@@ -13,15 +10,10 @@ import (
 )
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" { port = "8080" } // default for development
-
 	router := gin.Default()
-
 	router.GET("/", ping)
 	router.POST("/convert", convert)
-
-	router.Run(":" + port)
+	router.Run()
 }
 
 type ConvertParams struct {
