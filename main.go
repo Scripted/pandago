@@ -16,12 +16,6 @@ func main() {
 	router.Run()
 }
 
-type ConvertParams struct {
-	Body string `json:"body" binding:"required"`
-	From string `json:"from" binding:"required"`
-	To   string `json:"to"   binding:"required"`
-}
-
 func ping(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "OK 🐼, Go!"})
 }
@@ -49,7 +43,5 @@ func convert(c *gin.Context) {
 		log.Panic(err)
 	}
 
-	exec.Command("cp", outFile.Name(), "/usr/local/var/go/src/github.com/scripted/pandago/tmp").Run()
-
-	c.JSON(200, gin.H{"msg": "hey"})
+	c.File(outFile.Name())
 }
