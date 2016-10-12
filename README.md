@@ -39,7 +39,7 @@ curl -i localhost:8080
 # Date: Tue, 11 Oct 2016 21:53:14 GMT
 # Content-Length: 19
 #
-# {"message":"pong"}
+# {"message":"OK 🐼, Go!"}
 ```
 
 ## Dependencies with govendor
@@ -96,5 +96,5 @@ curl -i https://<YOUR_APP_NAME>.herokuapp.com
 # Content-Length: 19
 # Via: 1.1 vegur
 #
-# {"message":"pong"}
+# {"message":"OK 🐼, Go!"}
 ```
