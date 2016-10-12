@@ -29,7 +29,14 @@ go install -v ./...
 heroku local
 ```
 
-Instead of running pandago, you can also run the app directly using `pandago`.
+Or run the app directly using `pandago`
+
+``` bash
+go install -v ./...
+pandago
+```
+
+Ping root to see if it's working
 
 ``` bash
 curl -i localhost:8080
@@ -98,3 +105,72 @@ curl -i https://<YOUR_APP_NAME>.herokuapp.com
 #
 # {"message":"OK 🐼, Go!"}
 ```
+
+## Compiling Pandoc
+
+There might be a time we need to recompile Pandoc. If that day comes, here are
+some steps and tips.
+
+### Heroku Cedar-14 Environment
+
+You can get a fresh Cedar-14 environment using Docker.
+
+``` bash
+docker -it -v ~/local-shared-dir/:/container-shared-dir/ heroku/cedar:14 bash
+```
+
+You should probably go ahead and `apt-get update`
+
+### Pandoc Dependencies
+
+Pandoc needs [`hsb2hs`](https://hackage.haskell.org/package/hsb2hs) so we'll
+install [Haskell Platform](https://www.haskell.org/platform/) to get it using
+`cabal`. Then, append the Cabal binary path to `$PATH` so `hsb2hs` can be found.
+
+``` bash
+apt-get update
+apt-get install haskell-platform
+cabal update
+cabal install hsb2hs
+export PATH=$PATH:/root/.cabal/bin/
+```
+
+We'll also install [Haskell Stack](https://docs.haskellstack.org/en/stable/README/),
+which we will use to actually build Pandoc.
+
+```
+curl -sSL https://get.haskellstack.org/ | sh
+stack setup
+```
+
+### Compiling Pandoc
+
+Check the `INSTALL` instructions included in the Pandoc source.
+
+We'll use Haskell Stack to install Pandoc, making sure to embed data-files so
+that the binary is relocatable. These include template files among others that
+Pandoc needs to create `.docx` files, for example.
+
+``` bash
+wget https://hackage.haskell.org/package/pandoc-1.17.0.3/pandoc-1.17.0.3.tar.gz
+tar xvzf pandoc-1.17.0.3.tar.gz
+cd pandoc-1.17.0.3
+stack install pandoc --flag pandoc:embed_data_files
+```
+
+### Tarballing and Deploying
+
+The [Custom Binaries buildpack](https://github.com/tonyta/heroku-buildpack-custom-binaries)
+expects a tarball.
+
+``` bash
+cp /root/.local/bin/pandoc /container-shared-dir/
+cd /container-shared-dir/
+tar -cvzf pandoc-embedded.tar.gz pandoc
+```
+
+Then we can just find `pandoc-embedded.tar.gz` at `~/local-shared-dir/` on our
+local machine.
+
+From here, all we have to do is host it publicly (e.g, on AWS S3) and update our
+`.custom_binaries` manifest.
