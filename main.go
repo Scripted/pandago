@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os/exec"
 	"bytes"
 	"log"
+	"os/exec"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -23,7 +23,7 @@ type ConvertParams struct {
 }
 
 func ping(c *gin.Context) {
-	c.JSON(200, gin.H{ "message": "OK 🐼, Go!" })
+	c.JSON(200, gin.H{"message": "OK 🐼, Go!"})
 }
 
 func convert(c *gin.Context) {
@@ -32,7 +32,7 @@ func convert(c *gin.Context) {
 	validation_err := c.BindJSON(&json)
 	if validation_err != nil {
 		log.Println(validation_err)
-		c.JSON(400, gin.H{ "error": "body, to, and from are required params" })
+		c.JSON(400, gin.H{"error": "body, to, and from are required params"})
 		return
 	}
 
@@ -44,7 +44,9 @@ func convert(c *gin.Context) {
 	cmd.Stdout = &out
 	cmd_err := cmd.Run()
 
-	if cmd_err != nil { log.Panic(cmd_err) }
+	if cmd_err != nil {
+		log.Panic(cmd_err)
+	}
 
-	c.JSON(200, gin.H { "format": json.To, "body": out.String() })
+	c.JSON(200, gin.H{"format": json.To, "body": out.String()})
 }
