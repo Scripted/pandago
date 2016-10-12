@@ -28,24 +28,22 @@ func ping(c *gin.Context) {
 func convert(c *gin.Context) {
 	var json ConvertParams
 
-	if c.BindJSON(&json) == nil {
-		args := []string{"-f", "html", "-t", json.Format}
-
-		cmd := exec.Command("pandoc", args...)
-		cmd.Stdin = strings.NewReader(json.Body)
-		var out bytes.Buffer
-		cmd.Stdout = &out
-		err := cmd.Run()
-
-		if err != nil {
-			c.JSON(500, gin.H { "error": "pandoc died for your sins 😕" })
-			log.Fatal(err)
-		}
-
-		fmt.Printf(out.String())
-
-		c.JSON(200, gin.H { "format": json.Format, "body": out.String() })
-	} else {
-		c.JSON(418, gin.H { "error": "body and format required" })
+	validation_err := c.BindJSON(&json)
+	if validation_err != nil {
+		log.Println(validation_err)
+		c.JSON(400, gin.H{ "error": "body and format are required" })
+		return
 	}
+
+	args := []string{"-f", "html", "-t", json.Format}
+
+	cmd := exec.Command("pandoc", args...)
+	cmd.Stdin = strings.NewReader(json.Body)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	cmd_err := cmd.Run()
+
+	if cmd_err != nil { log.Panic(cmd_err) }
+
+	c.JSON(200, gin.H { "format": json.Format, "body": out.String() })
 }
