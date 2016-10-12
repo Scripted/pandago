@@ -17,8 +17,9 @@ func main() {
 }
 
 type ConvertParams struct {
-	Body string `form:"body" json:"body" binding:"required"`
-	Format string `form:"format" json:"format" binding:"required"`
+	Body string `json:"body" binding:"required"`
+	From string `json:"from" binding:"required"`
+	To   string `json:"to"   binding:"required"`
 }
 
 func ping(c *gin.Context) {
@@ -31,11 +32,11 @@ func convert(c *gin.Context) {
 	validation_err := c.BindJSON(&json)
 	if validation_err != nil {
 		log.Println(validation_err)
-		c.JSON(400, gin.H{ "error": "body and format are required" })
+		c.JSON(400, gin.H{ "error": "body, to, and from are required params" })
 		return
 	}
 
-	args := []string{"-f", "html", "-t", json.Format}
+	args := []string{"-f", json.From, "-t", json.To}
 
 	cmd := exec.Command("pandoc", args...)
 	cmd.Stdin = strings.NewReader(json.Body)
@@ -45,5 +46,5 @@ func convert(c *gin.Context) {
 
 	if cmd_err != nil { log.Panic(cmd_err) }
 
-	c.JSON(200, gin.H { "format": json.Format, "body": out.String() })
+	c.JSON(200, gin.H { "format": json.To, "body": out.String() })
 }
