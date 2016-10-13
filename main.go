@@ -17,6 +17,9 @@ func main() {
 	router.StaticFile("/favicon.ico", "./static/favicon.ico")
 	router.GET("/ping", ping)
 	router.POST("/convert", convert)
+	router.GET("/convert", func(c *gin.Context) {
+		c.Redirect(301, "/")
+	})
 	router.Run()
 }
 
