@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PandaGo</title>
+</head>
+<body>
+  <form action="/convert" method="post" enctype="multipart/form-data">
+    from:
+    <select name="from">
+      <optgroup label="Source Format">
+        <option selected disabled hidden value></option>
+        <option value="html">HTML</option>
+        <option value="markdown">Markdown</option>
+        <option value="docx">Microsoft Word</option>
+      </optgroup>
+    </select>
+
+    to:
+    <select name="to">
+      <optgroup label="Convert Format">
+        <option selected disabled hidden value></option>
+        <option value="html">HTML</option>
+        <option value="markdown">Markdown</option>
+        <option value="docx">Microsoft Word</option>
+      </optgroup>
+    </select>
+
+    file: <input type="file" name="payload" size="120">
+
+    <br/>
+
+    <input type="submit" value="Convert">
+  </form>
+</body>
+</html>

@@ -39,7 +39,7 @@ pandago
 Ping root to see if it's working
 
 ``` bash
-curl -i localhost:8080
+curl -i localhost:8080/ping
 #
 # HTTP/1.1 200 OK
 # Content-Type: application/json; charset=utf-8
@@ -93,7 +93,7 @@ That's it. Then just push it to Heroku like normal.
 
 ``` bash
 git push heroku master
-curl -i https://<YOUR_APP_NAME>.herokuapp.com
+curl -i https://<YOUR_APP_NAME>.herokuapp.com/ping
 #
 # HTTP/1.1 200 OK
 # Server: Cowboy

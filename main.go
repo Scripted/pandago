@@ -13,7 +13,9 @@ import (
 
 func main() {
 	router := gin.Default()
-	router.GET("/", ping)
+	router.StaticFile("/", "./static/index.html")
+	router.StaticFile("/favicon.ico", "./static/favicon.ico")
+	router.GET("/ping", ping)
 	router.POST("/convert", convert)
 	router.Run()
 }
@@ -25,7 +27,7 @@ func ping(c *gin.Context) {
 func convert(c *gin.Context) {
 	payload, _, err := c.Request.FormFile("payload")
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	inputFile := createTempFile("source_")
