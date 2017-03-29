@@ -41,6 +41,7 @@ func convert(c *gin.Context) {
 	defer os.Remove(outputFile.Name())
 
 	args := []string{
+		"--atx-headers",
 		"--standalone",
 		"--from", c.PostForm("from"),
 		"--to", c.PostForm("to"),
